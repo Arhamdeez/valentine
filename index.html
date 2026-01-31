@@ -859,6 +859,36 @@
       const view = mat4.create();
       const model = mat4.create();
       const mouse = { x: 0, y: 0 };
+      const gyro = { x: 0, y: 0 };
+      const gyroTarget = { x: 0, y: 0 };
+      const gyroFactor = 1.4;
+      const gyroSmooth = 0.08;
+      let gyroEnabled = false;
+
+      function startGyro() {
+        if (gyroEnabled) return;
+        gyroEnabled = true;
+        window.addEventListener('deviceorientation', onDeviceOrientation);
+      }
+
+      function onDeviceOrientation(e) {
+        if (e.beta == null || e.gamma == null) return;
+        const beta = Math.max(-90, Math.min(90, e.beta));
+        const gamma = Math.max(-90, Math.min(90, e.gamma));
+        gyroTarget.x = (gamma / 90) * 0.9;
+        gyroTarget.y = (-beta / 90) * 0.9;
+      }
+
+      function requestGyroPermission() {
+        if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+          DeviceOrientationEvent.requestPermission()
+            .then((permission) => { if (permission === 'granted') startGyro(); })
+            .catch(() => {});
+        } else {
+          startGyro();
+        }
+      }
+      window._requestParticlesGyro = requestGyroPermission;
 
       const resize = () => {
         const w = container.clientWidth;
@@ -889,8 +919,14 @@
         lastTime = t;
         elapsed += delta * speed * 0.001;
 
+        if (gyroEnabled) {
+          gyro.x += (gyroTarget.x - gyro.x) * gyroSmooth;
+          gyro.y += (gyroTarget.y - gyro.y) * gyroSmooth;
+        }
+        const offsetX = mouse.x * particleHoverFactor + gyro.x * gyroFactor;
+        const offsetY = mouse.y * particleHoverFactor + gyro.y * gyroFactor;
         mat4.identity(model);
-        mat4.translate(model, model, [-mouse.x * particleHoverFactor, -mouse.y * particleHoverFactor, 0]);
+        mat4.translate(model, model, [-offsetX, -offsetY, 0]);
         mat4.rotateX(model, model, Math.sin(elapsed * 0.2) * 0.1);
         mat4.rotateY(model, model, Math.cos(elapsed * 0.5) * 0.15);
         mat4.rotateZ(model, model, elapsed * 0.01);
@@ -912,6 +948,8 @@
       window._heartParticlesCleanup = () => {
         document.removeEventListener('mousemove', onMouseMove);
         window.removeEventListener('resize', resize);
+        if (gyroEnabled) window.removeEventListener('deviceorientation', onDeviceOrientation);
+        window._requestParticlesGyro = null;
         if (container.contains(canvas)) container.removeChild(canvas);
       };
     })();
@@ -925,6 +963,7 @@
       function hideSplash() {
         splash.classList.add('hide');
         splash.setAttribute('aria-hidden', 'true');
+        if (window._requestParticlesGyro) window._requestParticlesGyro();
       }
 
       splash.addEventListener('click', hideSplash, { once: true });
