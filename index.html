@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will You Be My Valentine? 💕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ========== PREMIUM ROMANTIC THEME ========== */
+    :root {
+      --rose-deep: #8b2942;
+      --rose-mid: #b84d6a;
+      --rose-soft: #d4a5a5;
+      --rose-blush: #f5e6e8;
+      --rose-gold: #c9a962;
+      --champagne: #f7f0e6;
+      --cream: #fdfbf7;
+      --shadow-soft: 0 25px 50px -12px rgba(139, 41, 66, 0.15);
+      --shadow-glow: 0 0 40px rgba(184, 77, 106, 0.2);
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Outfit', 'Segoe UI', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(184, 77, 106, 0.12), transparent),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(201, 169, 98, 0.08), transparent),
+        radial-gradient(ellipse 60% 40% at 0% 100%, rgba(212, 165, 165, 0.1), transparent),
+        linear-gradient(180deg, var(--cream) 0%, var(--rose-blush) 50%, var(--champagne) 100%);
+      position: relative;
+    }
+
+    /* Subtle ambient orbs */
+    body::before,
+    body::after {
+      content: '';
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::before {
+      width: 400px;
+      height: 400px;
+      background: var(--rose-soft);
+      top: -100px;
+      right: -100px;
+    }
+    body::after {
+      width: 300px;
+      height: 300px;
+      background: var(--rose-gold);
+      bottom: -50px;
+      left: -50px;
+      opacity: 0.25;
+    }
+
+    /* ========== DOODLE LAYER (background) ========== */
+    .doodle-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .doodle {
+      position: absolute;
+      opacity: 0.35;
+      animation: doodleFloat 8s ease-in-out infinite;
+    }
+
+    .doodle:nth-child(odd) { animation-delay: -2s; animation-duration: 10s; }
+    .doodle:nth-child(3n) { animation-delay: -4s; animation-duration: 12s; }
+
+    @keyframes doodleFloat {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(4px, -6px) rotate(2deg); }
+      50% { transform: translate(-3px, 4px) rotate(-1deg); }
+      75% { transform: translate(5px, 3px) rotate(1deg); }
+    }
+
+    .doodle-heart {
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .doodle-star {
+      fill: none;
+      stroke-width: 1.2;
+      stroke-linecap: round;
+    }
+
+    .doodle-squiggle {
+      fill: none;
+      stroke-width: 1;
+      stroke-linecap: round;
+    }
+
+    /* ========== QUESTION CARD ========== */
+    .container {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 3rem 2.5rem;
+      max-width: 520px;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+      animation: cardReveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      border: 2px dashed rgba(184, 77, 106, 0.2);
+    }
+
+    /* Card corner doodles */
+    .card-doodle {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.5;
+      z-index: 2;
+    }
+
+    .card-doodle.tl { top: 12px; left: 12px; transform: rotate(-15deg); }
+    .card-doodle.tr { top: 12px; right: 12px; transform: rotate(15deg); }
+    .card-doodle.bl { bottom: 12px; left: 12px; transform: rotate(15deg); }
+    .card-doodle.br { bottom: 12px; right: 12px; transform: rotate(-15deg); }
+
+    .card-doodle svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .divider-doodle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .divider-doodle .squiggle {
+      width: 24px;
+      height: 8px;
+      stroke: var(--rose-mid);
+      stroke-width: 1.5;
+      fill: none;
+      stroke-linecap: round;
+      opacity: 0.6;
+    }
+
+    .divider-doodle .tiny-heart {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      color: var(--rose-mid);
+      opacity: 0.8;
+    }
+
+    @keyframes cardReveal {
+      from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .tagline {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rose-mid);
+      margin-bottom: 0.75rem;
+      opacity: 0.9;
+    }
+
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--rose-gold), transparent);
+      margin: 0 auto 0.5rem;
+      border-radius: 1px;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(1.85rem, 5.5vw, 2.5rem);
+      color: var(--rose-deep);
+      line-height: 1.25;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .subtitle {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--rose-mid);
+      opacity: 0.85;
+      margin-bottom: 2rem;
+    }
+
+    .message {
+      min-height: 2.75rem;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--rose-deep);
+      margin-bottom: 1.75rem;
+      letter-spacing: 0.02em;
+      transition: opacity 0.4s ease;
+    }
+
+    .chase-message {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--rose-mid);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      box-shadow: var(--shadow-soft);
+      z-index: 20;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .chase-message.show {
+      opacity: 1;
+    }
+
+    .buttons-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 1rem 2.25rem;
+      font-size: 1.05rem;
+      font-family: var(--font-body);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+    }
+
+    .btn-yes {
+      background: linear-gradient(135deg, var(--rose-mid) 0%, var(--rose-deep) 100%);
+      color: white;
+      box-shadow: 0 4px 20px rgba(139, 41, 66, 0.35);
+      --yes-scale: 1;
+      transform: scale(var(--yes-scale));
+    }
+
+    .btn-yes::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.4), transparent);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .btn-yes:hover {
+      transform: scale(calc(var(--yes-scale) * 1.06));
+      box-shadow: 0 8px 32px rgba(139, 41, 66, 0.4), var(--shadow-glow);
+      animation: heartBeat 0.8s ease;
+    }
+
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(calc(var(--yes-scale) * 1.06)); }
+      35% { transform: scale(calc(var(--yes-scale) * 1.14)); }
+      70% { transform: scale(calc(var(--yes-scale) * 1.08)); }
+    }
+
+    .btn-no {
+      background: rgba(255, 255, 255, 0.9);
+      color: #7a6b6e;
+      border: 1px solid rgba(139, 41, 66, 0.15);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .btn-no:hover {
+      transform: translate(var(--no-dx, 0), var(--no-dy, 0));
+      border-color: rgba(139, 41, 66, 0.25);
+      box-shadow: 0 4px 16px rgba(139, 41, 66, 0.12);
+    }
+
+    .btn-no.reluctant {
+      animation: shake 0.55s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translate(0, 0); }
+      20% { transform: translate(-8px, 2px); }
+      40% { transform: translate(8px, -2px); }
+      60% { transform: translate(-6px, 0); }
+      80% { transform: translate(6px, 0); }
+    }
+
+    /* ========== CELEBRATION SCREEN ========== */
+    .celebration {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(184, 77, 106, 0.15), transparent),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(201, 169, 98, 0.1), transparent),
+        linear-gradient(180deg, var(--cream) 0%, var(--rose-blush) 100%);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .celebration.show {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .celebration-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      max-width: 480px;
+      text-align: center;
+      box-shadow: var(--shadow-soft), 0 0 0 1px rgba(255, 255, 255, 0.7) inset;
+      animation: celebrationReveal 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+      border: 2px dashed rgba(184, 77, 106, 0.25);
+    }
+
+    .celebration-card .card-doodle svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    @keyframes celebrationReveal {
+      from {
+        opacity: 0;
+        transform: translateY(32px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .celebration .divider {
+      margin: 1rem auto 1.25rem;
+    }
+
+    .celebration h2 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(1.9rem, 5vw, 2.6rem);
+      color: var(--rose-deep);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .celebration .romantic-message {
+      font-family: var(--font-body);
+      font-size: clamp(1rem, 2.8vw, 1.2rem);
+      font-weight: 400;
+      color: #5c4d50;
+      line-height: 1.75;
+      margin-bottom: 2rem;
+      animation: textReveal 0.8s ease 0.5s both;
+    }
+
+    @keyframes textReveal {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ========== FLOATING HEARTS (premium) ========== */
+    .hearts-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 50;
+      overflow: hidden;
+    }
+
+    .heart-float {
+      position: absolute;
+      font-size: 1.4rem;
+      opacity: 0.5;
+      filter: drop-shadow(0 2px 8px rgba(139, 41, 66, 0.15));
+      animation: floatUp 5s ease-in-out infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) rotate(0deg) scale(0.8);
+        opacity: 0;
+      }
+      8% { opacity: 0.5; }
+      92% { opacity: 0.5; }
+      100% {
+        transform: translateY(-120px) rotate(380deg) scale(1);
+        opacity: 0;
+      }
+    }
+
+    /* ========== WEBGL HEART PARTICLES BACKGROUND ========== */
+    #particles-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    #particles-bg canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ========== CONFETTI CANVAS ========== */
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 99;
+    }
+
+    /* ========== MOBILE ========== */
+    @media (max-width: 520px) {
+      .container {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+      }
+
+      .tagline {
+        font-size: 0.8rem;
+        letter-spacing: 0.15em;
+      }
+
+      .buttons-wrapper {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 240px;
+      }
+
+      .btn-no { order: 2; }
+      .btn-yes { order: 1; }
+
+      .celebration-card {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+      }
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
+</head>
+<body>
+  <!-- WEBGL HEART PARTICLES (background) -->
+  <div id="particles-bg" aria-hidden="true"></div>
+
+  <!-- DOODLE BACKGROUND -->
+  <div class="doodle-layer" id="doodle-layer" aria-hidden="true"></div>
+
+  <!-- QUESTION SCREEN -->
+  <div class="container" id="question-screen">
+    <span class="card-doodle tl" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    </span>
+    <span class="card-doodle tr" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    </span>
+    <span class="card-doodle bl" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    </span>
+    <span class="card-doodle br" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    </span>
+    <p class="tagline" id="tagline">For someone who has my heart</p>
+    <div class="divider"></div>
+    <div class="divider-doodle">
+      <svg viewBox="0 0 24 8" class="squiggle"><path d="M0 4 Q6 0 12 4 T24 4" stroke="currentColor"/></svg>
+      <span class="tiny-heart">♥</span>
+      <svg viewBox="0 0 24 8" class="squiggle"><path d="M0 4 Q6 8 12 4 T24 4" stroke="currentColor"/></svg>
+    </div>
+    <h1>Will you be my Valentine?</h1>
+    <p class="subtitle">I’ve been saving this question just for you</p>
+    <p class="message" id="message">&nbsp;</p>
+    <div class="buttons-wrapper">
+      <button class="btn btn-yes" id="btn-yes" style="--yes-scale: 1;">Yes, always</button>
+      <button class="btn btn-no" id="btn-no">Not yet</button>
+    </div>
+    <p class="chase-message" id="chase-message" aria-live="polite"></p>
+  </div>
+
+  <!-- CELEBRATION SCREEN -->
+  <div class="celebration" id="celebration">
+    <canvas id="confetti-canvas"></canvas>
+    <div class="celebration-card">
+      <span class="card-doodle tl" style="color: var(--rose-mid);"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
+      <span class="card-doodle tr" style="color: var(--rose-gold);"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+      <p class="tagline">You said yes</p>
+      <div class="divider"></div>
+      <div class="divider-doodle"><span class="tiny-heart">♥ ♥</span></div>
+      <h2>My heart is so full</h2>
+      <p class="romantic-message" id="romantic-message">
+        You just made this the best Valentine’s Day I could wish for. I don’t take it for granted—every day with you feels like a gift. Here’s to us, and to many more chapters written together.
+      </p>
+    </div>
+  </div>
+
+  <div class="hearts-container" id="hearts-container"></div>
+
+  <script>
+    // ========== WEBGL HEART PARTICLES (Particles-style, heart-shaped) ==========
+    (function initHeartParticles() {
+      const container = document.getElementById('particles-bg');
+      if (!container) return;
+
+      const particleCount = 350;
+      const particleSpread = 10;
+      const speed = 0.1;
+      const particleBaseSize = 220;
+      const cameraDistance = 20;
+      const moveParticlesOnHover = true;
+      const particleHoverFactor = 1;
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+      const particleColors = ['#ffffff', '#ffd1dc', '#f5e6e8', '#d4a5a5', '#b84d6a'];
+
+      const hexToRgb = hex => {
+        hex = hex.replace(/^#/, '');
+        if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+        const int = parseInt(hex, 16);
+        return [(int >> 16) & 255, (int >> 8) & 255, int & 255].map(c => c / 255);
+      };
+
+      const canvas = document.createElement('canvas');
+      container.appendChild(canvas);
+      const gl = canvas.getContext('webgl', { alpha: true, depth: false });
+      if (!gl) return;
+
+      gl.clearColor(0, 0, 0, 0);
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+      gl.disable(gl.DEPTH_TEST);
+
+      const vertexSrc = `
+        attribute vec3 position;
+        attribute vec4 random;
+        attribute vec3 color;
+        uniform mat4 uProjection;
+        uniform mat4 uView;
+        uniform mat4 uModel;
+        uniform float uTime;
+        uniform float uSpread;
+        uniform float uBaseSize;
+        uniform float uSizeRandomness;
+        varying vec4 vRandom;
+        varying vec3 vColor;
+        void main() {
+          vRandom = random;
+          vColor = color;
+          vec3 pos = position * uSpread;
+          pos.z *= 10.0;
+          vec4 mPos = uModel * vec4(pos, 1.0);
+          float t = uTime;
+          mPos.x += sin(t * random.z + 6.28 * random.w) * mix(0.1, 1.5, random.x);
+          mPos.y += sin(t * random.y + 6.28 * random.x) * mix(0.1, 1.5, random.w);
+          mPos.z += sin(t * random.w + 6.28 * random.y) * mix(0.1, 1.5, random.z);
+          vec4 mvPos = uView * mPos;
+          gl_PointSize = (uBaseSize * (1.0 + uSizeRandomness * (random.x - 0.5))) / length(mvPos.xyz);
+          gl_Position = uProjection * mvPos;
+        }
+      `;
+
+      const fragmentSrc = `
+        precision highp float;
+        uniform float uTime;
+        uniform sampler2D uTexture;
+        varying vec4 vRandom;
+        varying vec3 vColor;
+        void main() {
+          vec4 tex = texture2D(uTexture, gl_PointCoord.xy);
+          if (tex.a < 0.08) discard;
+          vec3 col = mix(tex.rgb, vColor, 0.25) + 0.12 * sin(vec3(0.1, 0.2, 0.3) + uTime + vRandom.y * 6.28);
+          col = clamp(col, 0.0, 1.0);
+          gl_FragColor = vec4(col, tex.a * 0.98);
+        }
+      `;
+
+      const compile = (type, src) => {
+        const shader = gl.createShader(type);
+        gl.shaderSource(shader, src);
+        gl.compileShader(shader);
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS))
+          throw new Error(gl.getShaderInfoLog(shader));
+        return shader;
+      };
+      const vs = compile(gl.VERTEX_SHADER, vertexSrc);
+      const fs = compile(gl.FRAGMENT_SHADER, fragmentSrc);
+      const program = gl.createProgram();
+      gl.attachShader(program, vs);
+      gl.attachShader(program, fs);
+      gl.linkProgram(program);
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS))
+        throw new Error(gl.getProgramInfoLog(program));
+      gl.useProgram(program);
+
+      // Heart emoji texture (💕): draw heart shape first, then emoji on top
+      const texSize = 128;
+      const emojiCanvas = document.createElement('canvas');
+      emojiCanvas.width = texSize;
+      emojiCanvas.height = texSize;
+      const ctx = emojiCanvas.getContext('2d');
+      const cx = texSize / 2, cy = texSize / 2 - 2, s = 40;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy + s * 0.35);
+      ctx.bezierCurveTo(cx, cy, cx - s, cy - s * 0.4, cx - s, cy + s * 0.35);
+      ctx.bezierCurveTo(cx - s, cy + s * 1.1, cx, cy + s * 1.6, cx, cy + s * 1.6);
+      ctx.bezierCurveTo(cx, cy + s * 1.6, cx + s, cy + s * 1.1, cx + s, cy + s * 0.35);
+      ctx.bezierCurveTo(cx + s, cy - s * 0.4, cx, cy, cx, cy + s * 0.35);
+      ctx.fillStyle = '#e85a8c';
+      ctx.fill();
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = '88px "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif';
+      ctx.fillText('💕', texSize / 2, texSize / 2);
+      const tex = gl.createTexture();
+      gl.activeTexture(gl.TEXTURE0);
+      gl.bindTexture(gl.TEXTURE_2D, tex);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, emojiCanvas);
+
+      const positions = new Float32Array(particleCount * 3);
+      const randoms = new Float32Array(particleCount * 4);
+      const colors = new Float32Array(particleCount * 3);
+      for (let i = 0; i < particleCount; i++) {
+        let x, y, z, len;
+        do {
+          x = Math.random() * 2 - 1;
+          y = Math.random() * 2 - 1;
+          z = Math.random() * 2 - 1;
+          len = x * x + y * y + z * z;
+        } while (len > 1 || len === 0);
+        const r = Math.cbrt(Math.random());
+        positions[i * 3] = x * r;
+        positions[i * 3 + 1] = y * r;
+        positions[i * 3 + 2] = z * r;
+        randoms[i * 4] = Math.random();
+        randoms[i * 4 + 1] = Math.random();
+        randoms[i * 4 + 2] = Math.random();
+        randoms[i * 4 + 3] = Math.random();
+        const col = hexToRgb(particleColors[Math.floor(Math.random() * particleColors.length)]);
+        colors[i * 3] = col[0];
+        colors[i * 3 + 1] = col[1];
+        colors[i * 3 + 2] = col[2];
+      }
+
+      const createBuf = (data, itemSize) => {
+        const buf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+        return { buf, data, itemSize };
+      };
+      const posBuf = createBuf(positions, 3);
+      const rndBuf = createBuf(randoms, 4);
+      const colBuf = createBuf(colors, 3);
+
+      const bindAttr = (name, buf) => {
+        const loc = gl.getAttribLocation(program, name);
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf.buf);
+        gl.enableVertexAttribArray(loc);
+        gl.vertexAttribPointer(loc, buf.itemSize, gl.FLOAT, false, 0, 0);
+      };
+      bindAttr('position', posBuf);
+      bindAttr('random', rndBuf);
+      bindAttr('color', colBuf);
+
+      const uProjection = gl.getUniformLocation(program, 'uProjection');
+      const uView = gl.getUniformLocation(program, 'uView');
+      const uModel = gl.getUniformLocation(program, 'uModel');
+      const uTime = gl.getUniformLocation(program, 'uTime');
+      const uSpread = gl.getUniformLocation(program, 'uSpread');
+      const uBaseSize = gl.getUniformLocation(program, 'uBaseSize');
+      const uSizeRandomness = gl.getUniformLocation(program, 'uSizeRandomness');
+      const uTexture = gl.getUniformLocation(program, 'uTexture');
+
+      const projection = mat4.create();
+      const view = mat4.create();
+      const model = mat4.create();
+      const mouse = { x: 0, y: 0 };
+
+      const resize = () => {
+        const w = container.clientWidth;
+        const h = container.clientHeight;
+        canvas.width = w * pixelRatio;
+        canvas.height = h * pixelRatio;
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+        gl.viewport(0, 0, canvas.width, canvas.height);
+        mat4.perspective(projection, 15 * Math.PI / 180, (w * pixelRatio) / (h * pixelRatio), 0.1, 100);
+        mat4.lookAt(view, [0, 0, cameraDistance], [0, 0, 0], [0, 1, 0]);
+      };
+      window.addEventListener('resize', resize);
+      resize();
+
+      const onMouseMove = (e) => {
+        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -((e.clientY / window.innerHeight) * 2 - 1);
+      };
+      document.addEventListener('mousemove', onMouseMove);
+
+      let elapsed = 0;
+      let lastTime = performance.now();
+
+      const animate = (t) => {
+        requestAnimationFrame(animate);
+        const delta = t - lastTime;
+        lastTime = t;
+        elapsed += delta * speed * 0.001;
+
+        mat4.identity(model);
+        mat4.translate(model, model, [-mouse.x * particleHoverFactor, -mouse.y * particleHoverFactor, 0]);
+        mat4.rotateX(model, model, Math.sin(elapsed * 0.2) * 0.1);
+        mat4.rotateY(model, model, Math.cos(elapsed * 0.5) * 0.15);
+        mat4.rotateZ(model, model, elapsed * 0.01);
+
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, tex);
+        gl.uniform1i(uTexture, 0);
+        gl.uniformMatrix4fv(uProjection, false, projection);
+        gl.uniformMatrix4fv(uView, false, view);
+        gl.uniformMatrix4fv(uModel, false, model);
+        gl.uniform1f(uTime, elapsed);
+        gl.uniform1f(uSpread, particleSpread);
+        gl.uniform1f(uBaseSize, particleBaseSize * pixelRatio);
+        gl.uniform1f(uSizeRandomness, 1);
+        gl.drawArrays(gl.POINTS, 0, particleCount);
+      };
+      requestAnimationFrame(animate);
+      window._heartParticlesCleanup = () => {
+        document.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('resize', resize);
+        if (container.contains(canvas)) container.removeChild(canvas);
+      };
+    })();
+
+    // ========== DOODLE BACKGROUND (hearts, stars, squiggles) ==========
+    (function initDoodles() {
+      const layer = document.getElementById('doodle-layer');
+      const positions = [
+        { left: '8%', top: '12%' }, { left: '85%', top: '18%' }, { left: '15%', top: '75%' }, { left: '78%', top: '82%' },
+        { left: '92%', top: '45%' }, { left: '5%', top: '50%' }, { left: '50%', top: '8%' }, { left: '45%', top: '88%' },
+        { left: '25%', top: '25%' }, { left: '70%', top: '65%' }, { left: '60%', top: '22%' }, { left: '30%', top: '60%' }
+      ];
+      const heartSvg = '<svg class="doodle-heart" viewBox="0 0 24 24" width="36" height="36" style="stroke:currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+      const starSvg = '<svg class="doodle-star" viewBox="0 0 24 24" width="28" height="28" style="stroke:currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+      const squiggleSvg = '<svg class="doodle-squiggle" viewBox="0 0 40 12" width="48" height="14"><path d="M0 6 Q10 2 20 6 T40 6" stroke="currentColor"/></svg>';
+      positions.forEach((pos, i) => {
+        const el = document.createElement('div');
+        el.className = 'doodle';
+        el.style.left = pos.left;
+        el.style.top = pos.top;
+        el.style.color = i % 3 === 0 ? 'var(--rose-mid)' : i % 3 === 1 ? 'var(--rose-gold)' : 'var(--rose-soft)';
+        if (i % 3 === 0) el.innerHTML = heartSvg;
+        else if (i % 3 === 1) el.innerHTML = starSvg;
+        else el.innerHTML = squiggleSvg;
+        layer.appendChild(el);
+      });
+    })();
+
+    const CONFIG = {
+      tagline: 'For someone who has my heart',
+      question: 'Will you be my Valentine?',
+      subtitle: 'I’ve been saving this question just for you',
+      noMessages: [
+        'Are you sure?',
+        'That one stung a little.',
+        'Wrong answer, my love.',
+        'Won’t you reconsider?',
+        'My heart is hoping for a different answer.',
+        'The other button is the one I’m rooting for.',
+        'Yes is feeling a bit lonely over there.',
+        'Last chance to break my heart or mend it.',
+        'I’m not giving up on us.',
+        'Yes is the only way this story ends.'
+      ],
+      noButtonTexts: ['Not yet', 'Really?', 'Sure?', 'Maybe later?', 'Think again?', 'Pretty please?', 'Yes (you know you want to)'],
+      celebrationTagline: 'You said yes',
+      yesCelebrationTitle: 'My heart is so full',
+      romanticMessage: 'You just made this the best Valentine’s Day I could wish for. I don’t take it for granted—every day with you feels like a gift. Here’s to us, and to many more chapters written together.',
+      forceYesAfter: 8,
+      yesScaleIncrement: 0.1,
+      heartEmojis: ['💕', '💖', '💗', '💓', '❤️', '💘', '💝']
+    };
+
+    let noClickCount = 0;
+    let yesScale = 1;
+    const btnYes = document.getElementById('btn-yes');
+    const btnNo = document.getElementById('btn-no');
+    const messageEl = document.getElementById('message');
+    const questionScreen = document.getElementById('question-screen');
+    const celebration = document.getElementById('celebration');
+    const heartsContainer = document.getElementById('hearts-container');
+    const romanticMessageEl = document.getElementById('romantic-message');
+
+    function getRandomPosition() {
+      const maxMove = 70;
+      return {
+        x: (Math.random() - 0.5) * 2 * maxMove,
+        y: (Math.random() - 0.5) * 2 * maxMove
+      };
+    }
+
+    let noButtonDx = 0, noButtonDy = 0;
+
+    function updateNoButton() {
+      noClickCount++;
+      const msgIndex = Math.min(noClickCount - 1, CONFIG.noMessages.length - 1);
+      messageEl.textContent = CONFIG.noMessages[msgIndex];
+      messageEl.style.opacity = '0';
+      setTimeout(() => { messageEl.style.opacity = '1'; }, 80);
+
+      const pos = getRandomPosition();
+      noButtonDx = pos.x;
+      noButtonDy = pos.y;
+      btnNo.style.setProperty('--no-dx', pos.x + 'px');
+      btnNo.style.setProperty('--no-dy', pos.y + 'px');
+      btnNo.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
+      btnNo.classList.add('reluctant');
+      setTimeout(() => btnNo.classList.remove('reluctant'), 560);
+
+      const textIndex = Math.min(noClickCount - 1, CONFIG.noButtonTexts.length - 1);
+      btnNo.textContent = CONFIG.noButtonTexts[textIndex];
+
+      yesScale = Math.min(yesScale + CONFIG.yesScaleIncrement, 2);
+      btnYes.style.setProperty('--yes-scale', yesScale);
+
+      if (noClickCount >= CONFIG.forceYesAfter) {
+        btnNo.style.display = 'none';
+        messageEl.textContent = 'There’s only one answer left… Yes, always.';
+      }
+    }
+
+    btnNo.addEventListener('click', (e) => {
+      e.preventDefault();
+      updateNoButton();
+    });
+
+    // No button runs away all over the screen; cute message after chasing a while
+    const runAwayThreshold = 100;
+    const runAwayDistance = 160;
+    const viewportPadding = 60;
+    let lastRunAway = 0;
+    const runAwayThrottle = 70;
+    let chaseTime = 0;
+    const chaseTimeToMessage = 4000;
+    const chaseMessages = [
+      "You're so persistent! 😊",
+      "Still chasing me? 💕",
+      "I see you! You're cute when you're determined 💖",
+      "Okay okay, you really want that No button! 😄",
+      "You don't give up, do you? 💗"
+    ];
+    let lastChaseMessageIndex = -1;
+    let chaseMessageTimeout = null;
+    const chaseMessageEl = document.getElementById('chase-message');
+
+    function showChaseMessage() {
+      chaseTime = 0;
+      lastChaseMessageIndex = (lastChaseMessageIndex + 1) % chaseMessages.length;
+      chaseMessageEl.textContent = chaseMessages[lastChaseMessageIndex];
+      chaseMessageEl.classList.add('show');
+      if (chaseMessageTimeout) clearTimeout(chaseMessageTimeout);
+      chaseMessageTimeout = setTimeout(() => {
+        chaseMessageEl.classList.remove('show');
+        chaseMessageTimeout = null;
+      }, 5000);
+    }
+
+    document.addEventListener('mousemove', (e) => {
+      if (noClickCount >= CONFIG.forceYesAfter) return;
+      if (btnNo.style.display === 'none') return;
+      const now = Date.now();
+      const rect = btnNo.getBoundingClientRect();
+      const btnCenterX = rect.left + rect.width / 2;
+      const btnCenterY = rect.top + rect.height / 2;
+      const mx = e.clientX;
+      const my = e.clientY;
+      const dist = Math.hypot(mx - btnCenterX, my - btnCenterY);
+
+      if (dist >= runAwayThreshold) {
+        chaseTime = Math.max(0, chaseTime - 50);
+      }
+
+      if (dist < runAwayThreshold && now - lastRunAway >= runAwayThrottle) {
+        lastRunAway = now;
+        chaseTime += runAwayThrottle;
+        if (chaseTime >= chaseTimeToMessage) showChaseMessage();
+        const angle = Math.atan2(btnCenterY - my, btnCenterX - mx);
+        let newCenterX = mx + Math.cos(angle) * runAwayDistance;
+        let newCenterY = my + Math.sin(angle) * runAwayDistance;
+        const halfW = rect.width / 2;
+        const halfH = rect.height / 2;
+        newCenterX = Math.max(viewportPadding + halfW, Math.min(window.innerWidth - viewportPadding - halfW, newCenterX));
+        newCenterY = Math.max(viewportPadding + halfH, Math.min(window.innerHeight - viewportPadding - halfH, newCenterY));
+        const origCenterX = btnCenterX - noButtonDx;
+        const origCenterY = btnCenterY - noButtonDy;
+        noButtonDx = newCenterX - origCenterX;
+        noButtonDy = newCenterY - origCenterY;
+        btnNo.style.transform = `translate(${noButtonDx}px, ${noButtonDy}px)`;
+      }
+    });
+
+    btnNo.addEventListener('mouseenter', () => {
+      if (noClickCount >= CONFIG.forceYesAfter) return;
+      const pos = getRandomPosition();
+      noButtonDx = pos.x;
+      noButtonDy = pos.y;
+      btnNo.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
+    });
+
+    btnNo.addEventListener('mouseleave', () => {
+      // optional: reset when leaving, or leave it where it ran to
+    });
+
+    function showCelebration() {
+      questionScreen.style.transition = 'opacity 0.5s ease';
+      questionScreen.style.opacity = '0';
+      questionScreen.style.pointerEvents = 'none';
+      setTimeout(() => {
+        questionScreen.style.display = 'none';
+        celebration.classList.add('show');
+        romanticMessageEl.textContent = CONFIG.romanticMessage;
+        const card = celebration.querySelector('.celebration-card');
+        card.querySelector('.tagline').textContent = CONFIG.celebrationTagline;
+        card.querySelector('h2').textContent = CONFIG.yesCelebrationTitle;
+        startConfetti();
+        startFloatingHearts();
+      }, 500);
+    }
+
+    btnYes.addEventListener('click', showCelebration);
+
+    function startConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const colors = ['#8b2942', '#b84d6a', '#d4a5a5', '#c9a962', '#f5e6e8'];
+      const pieces = [];
+      const count = 100;
+
+      for (let i = 0; i < count; i++) {
+        const isHeart = Math.random() > 0.6;
+        pieces.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          w: isHeart ? 8 : Math.random() * 8 + 4,
+          h: isHeart ? 8 : Math.random() * 5 + 2,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speedY: Math.random() * 2.5 + 1.5,
+          speedX: (Math.random() - 0.5) * 1.5,
+          rotation: Math.random() * 360,
+          rotationSpeed: (Math.random() - 0.5) * 8,
+          isHeart
+        });
+      }
+
+      function drawHeart(ctx, x, y, size) {
+        ctx.beginPath();
+        const topCurve = size * 0.3;
+        ctx.moveTo(x, y + topCurve);
+        ctx.bezierCurveTo(x, y, x - size, y, x - size, y + topCurve);
+        ctx.bezierCurveTo(x - size, y + size * 1.2, x, y + size * 1.8, x, y + size * 1.8);
+        ctx.bezierCurveTo(x, y + size * 1.8, x + size, y + size * 1.2, x + size, y + topCurve);
+        ctx.bezierCurveTo(x + size, y, x, y, x, y + topCurve);
+        ctx.fill();
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach(p => {
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rotation * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          if (p.isHeart) {
+            drawHeart(ctx, 0, 0, p.w);
+          } else {
+            ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          }
+          ctx.restore();
+          p.y += p.speedY;
+          p.x += p.speedX;
+          p.rotation += p.rotationSpeed;
+          if (p.y > canvas.height + 30) {
+            p.y = -20;
+            p.x = Math.random() * canvas.width;
+          }
+        });
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    function startFloatingHearts() {
+      const createHeart = () => {
+        const heart = document.createElement('span');
+        heart.className = 'heart-float';
+        heart.textContent = CONFIG.heartEmojis[Math.floor(Math.random() * CONFIG.heartEmojis.length)];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDuration = (Math.random() * 2.5 + 4) + 's';
+        heart.style.animationDelay = Math.random() * 2 + 's';
+        heartsContainer.appendChild(heart);
+        setTimeout(() => heart.remove(), 7000);
+      };
+      for (let i = 0; i < 14; i++) setTimeout(createHeart, i * 350);
+      const interval = setInterval(createHeart, 900);
+      setTimeout(() => clearInterval(interval), 16000);
+    }
+
+    window.addEventListener('resize', () => {
+      const canvas = document.getElementById('confetti-canvas');
+      if (canvas && celebration.classList.contains('show')) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+    });
+  </script>
+</body>
+</html>
