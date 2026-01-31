@@ -687,7 +687,7 @@
       const particleCount = 350;
       const particleSpread = 10;
       const speed = 0.1;
-      const particleBaseSize = 220;
+      const particleBaseSize = 300;
       const cameraDistance = 20;
       const moveParticlesOnHover = true;
       const particleHoverFactor = 1;
@@ -861,8 +861,8 @@
       const mouse = { x: 0, y: 0 };
       const gyro = { x: 0, y: 0 };
       const gyroTarget = { x: 0, y: 0 };
-      const gyroFactor = 1.4;
-      const gyroSmooth = 0.08;
+      const gyroFactor = 2.2;
+      const gyroSmooth = 0.32;
       let gyroEnabled = false;
 
       function startGyro() {
@@ -875,8 +875,8 @@
         if (e.beta == null || e.gamma == null) return;
         const beta = Math.max(-90, Math.min(90, e.beta));
         const gamma = Math.max(-90, Math.min(90, e.gamma));
-        gyroTarget.x = (gamma / 90) * 0.9;
-        gyroTarget.y = (-beta / 90) * 0.9;
+        gyroTarget.x = gamma / 90;
+        gyroTarget.y = -beta / 90;
       }
 
       function requestGyroPermission() {
